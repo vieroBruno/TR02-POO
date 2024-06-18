@@ -1,14 +1,24 @@
 
 public class Produto {
-	private int codigo;
+
+	private int proxCod = 1;
+	private int cod;
 	private String categoria;
-	private String unidadeMedida;
-	private String descricao;
-	public int getCodigo() {
-		return codigo;
+	private String uniMed;
+	private String desc;
+	private double preco;
+	
+	public int getProxCod() {
+		return proxCod;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setProxCod(int proxCod) {
+		this.proxCod = proxCod;
+	}
+	public int getCod() {
+		return cod;
+	}
+	public void setCod(int cod) {
+		this.cod = cod;
 	}
 	public String getCategoria() {
 		return categoria;
@@ -16,17 +26,17 @@ public class Produto {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public String getUnidadeMedida() {
-		return unidadeMedida;
+	public String getUniMed() {
+		return uniMed;
 	}
-	public void setUnidadeMedida(String unidadeMedida) {
-		this.unidadeMedida = unidadeMedida;
+	public void setUniMed(String uniMed) {
+		this.uniMed = uniMed;
 	}
-	public String getDescricao() {
-		return descricao;
+	public String getDesc() {
+		return desc;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	public double getPreco() {
 		return preco;
@@ -34,7 +44,14 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	private double preco;
 	
+	Produto ( String categoria, String med, String desc, Double preco ) {
+		this.cod = this.proxCod;
+		this.proxCod++;
+		this.categoria = categoria;
+		this.uniMed = med;
+		this.desc = desc;
+		this.preco = preco;
+	}
 
 }

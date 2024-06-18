@@ -3,20 +3,25 @@ import javax.swing.JOptionPane;
 
 public class EntradaSaidaDados {
 	
-	public static void mostrarMensagem(String mensagem) {
-		JOptionPane.showMessageDialog(null, mensagem);
+	public static void mostrarMensagem( String msg, String cab ) {
+		JOptionPane.showMessageDialog( null, msg, cab, 1 );
 	}
 	
-	public static String retornarTexto(String mensagem) {
-		return JOptionPane.showInputDialog(mensagem);
+	public static int mostrarCaixaSelecao( JComboBox<String> opcoes ) {
+		JOptionPane.showMessageDialog( null, opcoes, "Selecione uma Opção:", 1 );
+		return opcoes.getSelectedIndex();
 	}
 	
-	public static int retornarInteiro(String mensagem) {
-		return Integer.parseInt(JOptionPane.showInputDialog(mensagem));
+	public static String retornarTexto( String msg ) {
+		return JOptionPane.showInputDialog( null, msg, "Inserção de Valores", 1 );
 	}
 	
-	public static double retornarReal(String mensagem) {		
-		return Double.parseDouble(JOptionPane.showInputDialog(mensagem));
+	public static int retornarInteiro( String msg ) {
+		return Integer.parseInt(JOptionPane.showInputDialog( null, msg, "Inserção de Valores", 1 ));
+	}
+	
+	public static double retornarReal( String msg ) {		
+		return Double.parseDouble(JOptionPane.showInputDialog( null, msg, "Inserção de Valores", 1 ));
 	}
 	
 	public static int escolherProduto(JComboBox<String> listaProduto) {
