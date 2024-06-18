@@ -87,8 +87,11 @@ public class Menu {
 	public static void altProd() {
 		
 		if( Estoque.getEstoque().isEmpty() == true ) {	
+			
 			EntradaSaidaDados.mostrarMensagem("Nenhum Produto Cadastrado!", "Aviso");
+			
 		} else {
+			
 			String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 			int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
@@ -145,6 +148,22 @@ public class Menu {
 	}
 	
 	public static void consProd() {
+		
+		String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
+		String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
+		int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
+
+		EntradaSaidaDados.mostrarMensagem("Código: " + cod, "Teste");
+		
+		EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(cod-1);
+		
+		String dados = "Código: " + prodAlt.getProd().getCod();
+		dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
+		dados += "\nDescrição: " + prodAlt.getProd().getDesc();
+		dados += "\nPreço: R$" + prodAlt.getProd().getPreco() + " o(a) " + prodAlt.getProd().getUniMed();
+		dados += "\nQuantidade: " + prodAlt.getQtde() + " " + prodAlt.getProd().getUniMed() + "(s)";
+		
+		EntradaSaidaDados.mostrarMensagem(dados, "Consultar Produto");
 		
 	}
 	

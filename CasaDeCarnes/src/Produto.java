@@ -1,7 +1,7 @@
 
 public class Produto {
 
-	private int proxCod = 1;
+	private static int proxCod = 1;
 	private int cod;
 	private String categoria;
 	private String uniMed;
@@ -12,7 +12,7 @@ public class Produto {
 		return proxCod;
 	}
 	public void setProxCod(int proxCod) {
-		this.proxCod = proxCod;
+		Produto.proxCod = proxCod;
 	}
 	public int getCod() {
 		return cod;
@@ -46,8 +46,7 @@ public class Produto {
 	}
 	
 	Produto ( String categoria, String med, String desc, Double preco ) {
-		this.cod = this.proxCod;
-		this.proxCod++;
+		this.cod = proxCod++;
 		this.categoria = categoria;
 		this.uniMed = med;
 		this.desc = desc;

@@ -36,18 +36,14 @@ public class Estoque {
 	}
 	
 	public static int retornarCodigo( String cat, String desc ) {
-		int cod = 0;
-		
 		if( estoque.isEmpty() == false ) {				
 			for( EntradaSaidaProduto p : estoque) {	
 				if( p.getProd().getCategoria().equals(cat) && p.getProd().getDesc().equals(desc) ) {
-					cod = p.getProd().getCod();
-					break;
+					return p.getProd().getCod();
 				}
 			}
 		}
-		
-		return cod;
+		return 0;
 	}
 	
 	public static void confProd() {
