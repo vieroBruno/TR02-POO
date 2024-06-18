@@ -24,9 +24,14 @@ public class EntradaSaidaDados {
 		return Double.parseDouble(JOptionPane.showInputDialog( null, msg, "Inserção de Valores", 1 ));
 	}
 	
-	public static int escolherProduto(JComboBox<String> listaProduto) {
-		JOptionPane.showInternalMessageDialog(null, listaProduto, "Lista de produtos", 1, null);
-		return listaProduto.getSelectedIndex();
+	public static String escolherCategoria(JComboBox<String> listaCategoria) {
+		JOptionPane.showInternalMessageDialog(null, listaCategoria, "Lista de Categorias", 1, null);
+		return (String)listaCategoria.getSelectedItem();
+	}
+	
+	public static String escolherDesc(JComboBox<String> listaDesc) {
+		JOptionPane.showInternalMessageDialog(null, listaDesc, "Lista das Descrições", 1, null);
+		return (String)listaDesc.getSelectedItem();
 	}
 
 }
