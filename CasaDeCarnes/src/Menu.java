@@ -183,6 +183,8 @@ public class Menu {
 	
 	public static void regVenda() {
 		
+		// BRUNO GAY
+		
 	}
 	
 	public static void gerRel() {
