@@ -35,26 +35,36 @@ public class Estoque {
 		return lista;			
 	}
 	
-	public static int retornarCodigo( String cat, String desc ) {
-		if( estoque.isEmpty() == false ) {				
-			for( EntradaSaidaProduto p : estoque) {	
+	public static int retornarIndex( String cat, String desc ) {
+		if( estoque.isEmpty() == false ) {		
+			int i;
+			for( i=0; i<estoque.size(); i++ ) {	
+				EntradaSaidaProduto p = estoque.get(i);
 				if( p.getProd().getCategoria().equals(cat) && p.getProd().getDesc().equals(desc) ) {
-					return p.getProd().getCod();
+					return i;
 				}
 			}
 		}
-		return 0;
+		return -1;
 	}
 	
-	public static void confProd() {
+	public static boolean confQtde( int index, int qtde ) {
+		
+		EntradaSaidaProduto prod = estoque.get(index);
+		if( prod.getQtde() >= qtde ) {
+			return true;
+		} else {
+			return false;
+		}
 		
 	}
-	public static void altProd() {
-		
+	
+	public static void altProd( int index, int qtde ) {
+		estoque.get(index).setQtde(estoque.get(index).getQtde()-qtde);
 	}
 
-	public static void remProd() {
-		
+	public static void remProd( int index ) {
+		estoque.remove(index);
 	}
 	
 }

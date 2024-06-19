@@ -2,20 +2,28 @@ import java.util.ArrayList;
 
 public class Venda {
 	
-	private int codigo;
-	private ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+	private static int proxCod = 1;
+	private int cod;
+	private static ArrayList<SaidaProduto> venda = new ArrayList<SaidaProduto>();
 	private String data;
-	public int getCodigo() {
-		return codigo;
+	
+	public int getProxCod() {
+		return proxCod;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setProxCod(int proxCod) {
+		Venda.proxCod = proxCod;
 	}
-	public ArrayList<Produto> getListaProdutos() {
-		return listaProdutos;
+	public int getCod() {
+		return cod;
 	}
-	public void setListaProdutos(ArrayList<Produto> listaProdutos) {
-		this.listaProdutos = listaProdutos;
+	public void setCod(int cod) {
+		this.cod = cod;
+	}
+	public ArrayList<SaidaProduto> getVenda() {
+		return venda;
+	}
+	public void addProd(SaidaProduto prod) {
+		venda.add(prod);
 	}
 	public String getData() {
 		return data;

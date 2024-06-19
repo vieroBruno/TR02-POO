@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -81,6 +84,8 @@ public class Menu {
 			EntradaSaidaProduto ep = new EntradaSaidaProduto( p, qtde );
 			Estoque.addProd(ep);
 		}
+
+        EntradaSaidaDados.mostrarMensagem("Produto Cadastrado com Sucesso!", "Cadastrar Produto");
 		
 	}
 	
@@ -94,9 +99,9 @@ public class Menu {
 			
 			String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
-			int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
+			int index = Estoque.retornarIndex(cat_esc, desc_esc);
 			
-			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(cod-1);
+			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
 			
 			int op = 0;
 			String[] lista= {"Categoria", "Descrição", "Preço", "Quantidade","Salvar"};
@@ -142,6 +147,8 @@ public class Menu {
 				}			
 					
 			} while ( op != 4 );
+
+	        EntradaSaidaDados.mostrarMensagem("Produto Alterado com Sucesso!", "Alterar Produto");
 			
 		}
 		
@@ -149,41 +156,100 @@ public class Menu {
 	
 	public static void consProd() {
 		
-		String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
-		String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
-		int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
-
-		EntradaSaidaDados.mostrarMensagem("Código: " + cod, "Teste");
-		
-		EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(cod-1);
-		
-		String dados = "Código: " + prodAlt.getProd().getCod();
-		dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
-		dados += "\nDescrição: " + prodAlt.getProd().getDesc();
-		dados += "\nPreço: R$" + prodAlt.getProd().getPreco() + " o(a) " + prodAlt.getProd().getUniMed();
-		dados += "\nQuantidade: " + prodAlt.getQtde() + " " + prodAlt.getProd().getUniMed() + "(s)";
-		
-		EntradaSaidaDados.mostrarMensagem(dados, "Consultar Produto");
+		if( Estoque.getEstoque().isEmpty() == true ) {	
+			EntradaSaidaDados.mostrarMensagem("Nenhum Produto Cadastrado!", "Aviso");
+		} else {
+			String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
+			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
+			int index = Estoque.retornarIndex(cat_esc, desc_esc);
+			
+			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
+			
+			String dados = "Código: " + prodAlt.getProd().getCod();
+			dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
+			dados += "\nDescrição: " + prodAlt.getProd().getDesc();
+			dados += "\nPreço: R$" + prodAlt.getProd().getPreco() + " o(a) " + prodAlt.getProd().getUniMed();
+			dados += "\nQuantidade: " + prodAlt.getQtde() + " " + prodAlt.getProd().getUniMed() + "(s)";
+			
+			EntradaSaidaDados.mostrarMensagem(dados, "Consultar Produto");
+		}
 		
 	}
 	
 	public static void delProd() {
 		if( Estoque.getEstoque().isEmpty() == true ) {	
 			EntradaSaidaDados.mostrarMensagem("Nenhum Produto Cadastrado!", "Aviso");
-		}else {
+		} else {
 			
 			String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
-			int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
-			
-			EntradaSaidaProduto prodDel = Estoque.getEstoque().get(cod-1);
+			int index = Estoque.retornarIndex(cat_esc, desc_esc);
+			Estoque.getEstoque().remove(index);
+
+	        EntradaSaidaDados.mostrarMensagem("Produto Deletado com Sucesso!", "Deletar Produto");
 				
 		}
 	}
 	
 	public static void regVenda() {
 		
-		// BRUNO GAY
+		if( Estoque.getEstoque().isEmpty() == true ) {	
+			
+			EntradaSaidaDados.mostrarMensagem("Nenhum Produto para Venda!", "Aviso");
+			
+		} else {
+
+			Venda v = new Venda();
+			boolean fin = false;
+			
+			while(fin!=true) {
+				
+				String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
+				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
+				int index = Estoque.retornarIndex(cat_esc, desc_esc);
+				int qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade a ser Vendida:");
+				
+				EntradaSaidaProduto prod = Estoque.getEstoque().get(index);
+				
+				while(!Estoque.confQtde(index, qtde)) {
+					qtde = EntradaSaidaDados.retornarInteiro("Valor Inválido! Quantidade Máxima - " + 
+								prod.getQtde() + " " + prod.getProd().getUniMed() + "(s)\nInsira a Quantidade a ser Vendida:");
+				}
+				
+				SaidaProduto s = new SaidaProduto( prod.getProd(), qtde	);
+				v.addProd(s);
+				
+				if( prod.getQtde() == qtde ) {
+					Estoque.remProd(index);
+				} else {
+					Estoque.altProd(index, qtde);
+				}
+				
+				if( Estoque.getEstoque().isEmpty() == false ) {
+					int resp = JOptionPane.showConfirmDialog(null, "Deseja Adicionar mais Produtos?", "Venda",
+			                JOptionPane.YES_NO_OPTION);
+					if(resp == JOptionPane.NO_OPTION) {
+						fin = true;
+					}
+				} else {
+					fin = true;
+				}
+				
+			}
+			
+			v.setCod(v.getProxCod());
+			v.setProxCod(v.getProxCod()+1);
+			
+			Calendar c = Calendar.getInstance();
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        String data = sdf.format(c.getTime());
+	        v.setData(data);
+	        
+	        RegVenda.addVenda(v);
+	        
+	        EntradaSaidaDados.mostrarMensagem("Venda Realizada com Sucesso!", "Registro de Venda");
+				
+		}
 		
 	}
 	
