@@ -4,7 +4,7 @@ public class RegVenda {
 
 	private static ArrayList<Venda> registros = new ArrayList<Venda>();
 	
-	public ArrayList<Venda> getVenda() {
+	public static ArrayList<Venda> getVenda() {
 		return registros;
 	}
 	public static void addVenda(Venda venda) {

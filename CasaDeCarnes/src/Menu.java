@@ -133,7 +133,7 @@ public class Menu {
 						}	
 						
 						prodAlt.getProd().setCategoria( categorias[op_cat] );
-						prodAlt.getProd().setUniMed(med);;
+						prodAlt.getProd().setUniMed(med);
 						break;
 					 case 1:			
 						 prodAlt.getProd().setDesc( EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:") );
@@ -168,7 +168,7 @@ public class Menu {
 			String dados = "Código: " + prodAlt.getProd().getCod();
 			dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
 			dados += "\nDescrição: " + prodAlt.getProd().getDesc();
-			dados += "\nPreço: R$" + prodAlt.getProd().getPreco() + " o(a) " + prodAlt.getProd().getUniMed();
+			dados += "\nPreço: R$" + String.format("%.2f", prodAlt.getProd().getPreco()) + " o(a) " + prodAlt.getProd().getUniMed();
 			dados += "\nQuantidade: " + prodAlt.getQtde() + " " + prodAlt.getProd().getUniMed() + "(s)";
 			
 			EntradaSaidaDados.mostrarMensagem(dados, "Consultar Produto");
@@ -254,6 +254,79 @@ public class Menu {
 	}
 	
 	public static void gerRel() {
+
+		int op = 0;
+		String[] lista= {"Relatório Resumido do Estoque", "Relatório Detalhado do Estoque", "Relatório Resumido de Vendas", "Relatório Detalhado de Vendas", "Sair"};
+		JComboBox<String> opcoes = new JComboBox<String>(lista);	
+		do {
+			
+			op = EntradaSaidaDados.mostrarCaixaSelecao(opcoes);
+			String rel = null;
+			String[] rels = null;
+			int i;	
+			boolean parou;
+			
+			Calendar c = Calendar.getInstance();
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        String data = sdf.format(c.getTime());
+			
+			switch (op) {
+				case 0:
+					EntradaSaidaDados.mostrarMensagem("0", "Teste");
+					rel = Relatorio.gerar_rel_res_estoque();
+					rel += "\n\nData do Relatório: " + data;
+					EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					break;
+				case 1:
+	                rels = Relatorio.gerar_rel_det_estoque();
+	                parou = false;
+	                for (i = 0; i < rels.length && !parou; i++) {
+                        rels[i] += "\n\nData do Relatório: " + data;
+                        String[] cont = {"Sair", "Continuar"};
+                        int esc = JOptionPane.showOptionDialog(
+                            null,
+                            rels[i],
+                            "Página " + (i+1),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null,
+                            cont,
+                            cont[0]
+                        );
+                        if (esc == JOptionPane.YES_OPTION) {
+                            parou = true;
+                        }
+                    }
+	                break;
+				case 2:
+					rel = Relatorio.gerar_rel_res_vendas();
+					rel += "\n\nData do Relatório: " + data;
+					EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					break;
+				case 3:
+					rels = Relatorio.gerar_rel_det_vendas();
+					parou = false;
+	                for (i = 0; i < rels.length && !parou; i++) {
+                        rels[i] += "\n\nData do Relatório: " + data;
+                        String[] cont = {"Sair", "Continuar"};
+                        int esc = JOptionPane.showOptionDialog(
+                            null,
+                            rels[i],
+                            "Página " + (i+1),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null,
+                            cont,
+                            cont[0]
+                        );
+                        if (esc == JOptionPane.YES_OPTION) {
+                            parou = true;
+                        }
+                    }
+					break;
+			}
+				
+		} while ( op != 4 );
 		
 	}
 }
