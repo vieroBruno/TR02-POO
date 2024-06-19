@@ -168,7 +168,17 @@ public class Menu {
 	}
 	
 	public static void delProd() {
-		
+		if( Estoque.getEstoque().isEmpty() == true ) {	
+			EntradaSaidaDados.mostrarMensagem("Nenhum Produto Cadastrado!", "Aviso");
+		}else {
+			
+			String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
+			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
+			int cod = Estoque.retornarCodigo(cat_esc, desc_esc);
+			
+			EntradaSaidaProduto prodDel = Estoque.getEstoque().get(cod-1);
+				
+		}
 	}
 	
 	public static void regVenda() {
