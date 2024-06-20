@@ -57,6 +57,8 @@ public class Relatorio {
 		double valor = 0.0;
 		String[] rels = new String[num];
         for (i = 0; i < num; i++) {
+		qtde = 0;
+		valor = 0.0;
             rels[i] = "Relatório Detalhado de Vendas!";
             rels[i] += "\n\n   Código da Compra: " + RegVenda.getVenda().get(i).getCod();
             for( j=0; j<RegVenda.getVenda().get(i).getVenda().size(); j++ ) {
