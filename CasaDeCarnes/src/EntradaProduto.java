@@ -1,5 +1,5 @@
 
-public class EntradaSaidaProduto {
+public class EntradaProduto {
 
 	private Produto prod;
 	private int qtde;
@@ -17,7 +17,7 @@ public class EntradaSaidaProduto {
 		this.qtde = qtde;
 	}
 	
-	EntradaSaidaProduto( Produto prod, int qtde ) {
+	EntradaProduto( Produto prod, int qtde ) {
 		this.prod = prod;
 		this.qtde = qtde;
 	}

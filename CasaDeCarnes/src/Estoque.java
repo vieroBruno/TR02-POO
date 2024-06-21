@@ -3,20 +3,20 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 
 public class Estoque {
-	private static ArrayList<EntradaSaidaProduto> estoque = new ArrayList<EntradaSaidaProduto>();
+	private static ArrayList<EntradaProduto> estoque = new ArrayList<EntradaProduto>();
 	
-	public static ArrayList<EntradaSaidaProduto> getEstoque() {
+	public static ArrayList<EntradaProduto> getEstoque() {
 		return estoque;
 	}
 	
-	public static void addProd(EntradaSaidaProduto prod) {
+	public static void addProd(EntradaProduto prod) {
 		estoque.add(prod);
 	}
 	
 	public static JComboBox<String> retornarListaCategorias() {
 		JComboBox<String> lista = new JComboBox<String>();
 		if( estoque.isEmpty() == false ) {				
-			for( EntradaSaidaProduto p : estoque) {			
+			for( EntradaProduto p : estoque) {			
 				lista.addItem( p.getProd().getCategoria() );
 			}
 		}
@@ -26,7 +26,7 @@ public class Estoque {
 	public static JComboBox<String> retornarListaDesc( String cat ) {
 		JComboBox<String> lista = new JComboBox<String>();
 		if( estoque.isEmpty() == false ) {				
-			for( EntradaSaidaProduto p : estoque) {	
+			for( EntradaProduto p : estoque) {	
 				if( p.getProd().getCategoria().equals(cat) ) {
 					lista.addItem( p.getProd().getDesc() );
 				}
@@ -39,7 +39,7 @@ public class Estoque {
 		if( estoque.isEmpty() == false ) {		
 			int i;
 			for( i=0; i<estoque.size(); i++ ) {	
-				EntradaSaidaProduto p = estoque.get(i);
+				EntradaProduto p = estoque.get(i);
 				if( p.getProd().getCategoria().equals(cat) && p.getProd().getDesc().equals(desc) ) {
 					return i;
 				}
@@ -50,7 +50,7 @@ public class Estoque {
 	
 	public static boolean confQtde( int index, int qtde ) {
 		
-		EntradaSaidaProduto prod = estoque.get(index);
+		EntradaProduto prod = estoque.get(index);
 		if( prod.getQtde() >= qtde ) {
 			return true;
 		} else {
