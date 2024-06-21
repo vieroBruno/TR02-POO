@@ -63,10 +63,14 @@ public class Menu {
 		}	
 		
 		String desc = EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:");
-		
+		while(desc == "") {
+			
+			EntradaSaidaDados.mostrarMensagem("Tente Novamente!", "Erro");
+			desc = EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:");
+		}
 		boolean existe = false;
 		if( Estoque.getEstoque().isEmpty() == false ) {	
-			for(EntradaSaidaProduto prod : Estoque.getEstoque()) {
+			for(EntradaProduto prod : Estoque.getEstoque()) {
 				if( prod.getProd().getCategoria().equals(categorias[op]) && prod.getProd().getDesc().equals(desc) ) {
 					existe = true;
 					break;
@@ -77,11 +81,22 @@ public class Menu {
 		if( existe ) {
 			EntradaSaidaDados.mostrarMensagem("Produto já Cadastrado!", "Aviso");
 		} else {
+			
 			Double preco = EntradaSaidaDados.retornarReal("Insira o Valor ( " + med + " ):");
+			while (preco == 0) {
+				
+				EntradaSaidaDados.mostrarMensagem("Tente Novamente!", "Erro");
+				preco = EntradaSaidaDados.retornarReal("Insira o Valor ( " + med + " ):");
+			}
+			
 			int qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade em " + med + ":");
+			while (qtde == 0) {
+				EntradaSaidaDados.mostrarMensagem("Tente Novamente!", "Erro");
+				qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade em " + med + ":");
+			}
 			
 			Produto p = new Produto( categorias[op], med, desc, preco );
-			EntradaSaidaProduto ep = new EntradaSaidaProduto( p, qtde );
+			EntradaProduto ep = new EntradaProduto( p, qtde );
 			Estoque.addProd(ep);
 		}
 
@@ -101,7 +116,7 @@ public class Menu {
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 			int index = Estoque.retornarIndex(cat_esc, desc_esc);
 			
-			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
+			EntradaProduto prodAlt = Estoque.getEstoque().get(index);
 			
 			int op = 0;
 			String[] lista= {"Categoria", "Descrição", "Preço", "Quantidade","Salvar"};
@@ -135,14 +150,29 @@ public class Menu {
 						prodAlt.getProd().setCategoria( categorias[op_cat] );
 						prodAlt.getProd().setUniMed(med);
 						break;
-					 case 1:			
-						 prodAlt.getProd().setDesc( EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:") );
+					 case 1:
+						 String novaDescricao=EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:");
+						 while(novaDescricao == "") {
+							 EntradaSaidaDados.mostrarMensagem("Tente Novamente","Erro!");
+							 novaDescricao=EntradaSaidaDados.retornarTexto("Insira a Descrição do Produto:");
+						 }
+						 prodAlt.getProd().setDesc( novaDescricao );
 						break;
 					 case 2:
-						 prodAlt.getProd().setPreco( EntradaSaidaDados.retornarReal("Insira o Valor ( " + prodAlt.getProd().getUniMed() + " ):") );
+						 double novoPreco = EntradaSaidaDados.retornarReal("Insira o Valor ( " + prodAlt.getProd().getUniMed() + " ):") ;
+						 while(novoPreco == 0 ) {
+							 EntradaSaidaDados.mostrarMensagem("Tente Novamente","Erro!");
+							 novoPreco = EntradaSaidaDados.retornarReal("Insira o Valor ( " + prodAlt.getProd().getUniMed() + " ):") ;
+						 }
+						 prodAlt.getProd().setPreco( novoPreco );
 						break;
-					case 3: 
-						prodAlt.setQtde( EntradaSaidaDados.retornarInteiro("Insira a Quantidade ( " + prodAlt.getProd().getUniMed() + " ):") );
+					case 3:
+						int novaQtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade ( " + prodAlt.getProd().getUniMed() + " ):");
+						while( novaQtde == 0 ) {
+							EntradaSaidaDados.mostrarMensagem("Tente Novamente","Erro!");
+							novaQtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade ( " + prodAlt.getProd().getUniMed() + " ):");
+						}
+						prodAlt.setQtde( novaQtde );
 						break;
 				}			
 					
@@ -163,7 +193,7 @@ public class Menu {
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 			int index = Estoque.retornarIndex(cat_esc, desc_esc);
 			
-			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
+			EntradaProduto prodAlt = Estoque.getEstoque().get(index);
 			
 			String dados = "Código: " + prodAlt.getProd().getCod();
 			dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
@@ -208,8 +238,12 @@ public class Menu {
 				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 				int index = Estoque.retornarIndex(cat_esc, desc_esc);
 				int qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade a ser Vendida:");
+				while(qtde == 0) {
+					 EntradaSaidaDados.mostrarMensagem("Tente Novamente","Erro!");
+					 qtde=EntradaSaidaDados.retornarInteiro("Insira a Quantidade a ser Vendida:");
+				}
 				
-				EntradaSaidaProduto prod = Estoque.getEstoque().get(index);
+				EntradaProduto prod = Estoque.getEstoque().get(index);
 				
 				while(!Estoque.confQtde(index, qtde)) {
 					qtde = EntradaSaidaDados.retornarInteiro("Valor Inválido! Quantidade Máxima - " + 
