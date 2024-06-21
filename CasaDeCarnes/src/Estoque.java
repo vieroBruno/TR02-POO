@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.JComboBox;
 
@@ -15,11 +16,16 @@ public class Estoque {
 	
 	public static JComboBox<String> retornarListaCategorias() {
 		JComboBox<String> lista = new JComboBox<String>();
-		if( estoque.isEmpty() == false ) {				
-			for( EntradaProduto p : estoque) {			
-				lista.addItem( p.getProd().getCategoria() );
-			}
-		}
+		HashSet<String> catAdd = new HashSet<>();
+	    
+	    if (!estoque.isEmpty()) {
+	        for (EntradaProduto p : estoque) {
+	            String categoria = p.getProd().getCategoria();
+	            if (catAdd.add(categoria)) {
+	                lista.addItem(categoria);
+	            }
+	        }
+	    }
 		return lista;			
 	}
 	

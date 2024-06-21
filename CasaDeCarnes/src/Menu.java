@@ -233,6 +233,8 @@ public class Menu {
             boolean fin = false;
             
             while (!fin) {
+            	
+//          	v.getProds().clear();
 				
 				String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
