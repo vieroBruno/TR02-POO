@@ -38,11 +38,11 @@ public class Relatorio {
 		int i, j, qtde = 0, tam, num = RegVenda.getVenda().size();
 		Double valor = 0.0;
 		for(i=0;i<num;i++) {
-			tam = RegVenda.getVenda().get(i).getVenda().size();
+			tam = RegVenda.getVenda().get(i).getProds().size();
 			qtde += tam;
 			for(j=0;j<tam;j++) {
-				valor += RegVenda.getVenda().get(i).getVenda().get(j).getProd().getPreco()
-								* RegVenda.getVenda().get(i).getVenda().get(j).getQtde();
+				valor += RegVenda.getVenda().get(i).getProds().get(j).getProd().getPreco()
+								* RegVenda.getVenda().get(i).getProds().get(j).getQtde();
 			}
 		}
 		rel += "\n\n   Número de Vendas: " + num;
@@ -53,23 +53,37 @@ public class Relatorio {
 	}
 
 	public static String[] gerar_rel_det_vendas() {
-		int i, j, num = RegVenda.getVenda().size(), qtde = 0;
+		int cont = 0, num = RegVenda.getVenda().size(), qtde = 0;
 		double valor = 0.0;
 		String[] rels = new String[num];
-        for (i = 0; i < num; i++) {
-		qtde = 0;
-		valor = 0.0;
-            rels[i] = "Relatório Detalhado de Vendas!";
-            rels[i] += "\n\n   Código da Compra: " + RegVenda.getVenda().get(i).getCod();
-            for( j=0; j<RegVenda.getVenda().get(i).getVenda().size(); j++ ) {
-            	qtde += RegVenda.getVenda().get(i).getVenda().get(j).getQtde();
-            	valor += RegVenda.getVenda().get(i).getVenda().get(j).getProd().getPreco()
-            							* RegVenda.getVenda().get(i).getVenda().get(j).getQtde();
-            }
-            rels[i] += "\n   Quantidade de Itens da Compra: " + qtde;
-            rels[i] += "\n   Valor Total da Compra: " + String.format("%.2f", valor);
-            rels[i] += "\n   Data da Compra: " + RegVenda.getVenda().get(i).getData();
-        }
+//        for (i = 0; i < num; i++) {
+//			qtde = 0;
+//			valor = 0.0;
+//            rels[i] = "Relatório Detalhado de Vendas!";
+//            rels[i] += "\n\n   Código da Venda: " + RegVenda.getVenda().get(i).getCod();
+//            for( j=0; j<RegVenda.getVenda().get(i).getProds().size(); j++ ) {
+//            	qtde += RegVenda.getVenda().get(i).getProds().get(j).getQtde();
+//            	valor += RegVenda.getVenda().get(i).getProds().get(j).getProd().getPreco()
+//            							* RegVenda.getVenda().get(i).getProds().get(j).getQtde();
+//            }
+//            rels[i] += "\n   Quantidade de Itens da Venda: " + qtde;
+//            rels[i] += "\n   Valor Total da Venda: " + String.format("%.2f", valor);
+//            rels[i] += "\n   Data da Venda: " + RegVenda.getVenda().get(i).getData();
+//        }
+		for( Venda v : RegVenda.getVenda() ) {
+			qtde = 0;
+			valor = 0.0;
+			rels[cont] = "Relatório Detalhado de Vendas!";
+			rels[cont] += "\n\n   Código da Venda: " + v.getCod();
+			for( SaidaProduto s : v.getProds() ) {
+				qtde += s.getQtde();
+				valor += s.getProd().getPreco() * s.getQtde();
+			}
+			rels[cont] += "\n   Quantidade de Itens da Venda: " + qtde;
+			rels[cont] += "\n   Valor Total da Venda: " + String.format("%.2f", valor);
+			rels[cont] += "\n   Data da Venda: " + v.getData();
+			cont++;
+		}
 		
 		return rels;
 	}

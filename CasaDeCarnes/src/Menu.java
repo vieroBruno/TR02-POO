@@ -200,9 +200,9 @@ public class Menu {
 		} else {
 
 			Venda v = new Venda();
-			boolean fin = false;
-			
-			while(fin!=true) {
+            boolean fin = false;
+            
+            while (!fin) {
 				
 				String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
@@ -237,13 +237,13 @@ public class Menu {
 				
 			}
 			
-			v.setCod(v.getProxCod());
-			v.setProxCod(v.getProxCod()+1);
-			
-			Calendar c = Calendar.getInstance();
-	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	        String data = sdf.format(c.getTime());
-	        v.setData(data);
+            v.setCod(v.getProxCod());
+            v.setProxCod(v.getProxCod() + 1);
+            
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String data = sdf.format(c.getTime());
+            v.setData(data);
 	        
 	        RegVenda.addVenda(v);
 	        
@@ -272,7 +272,6 @@ public class Menu {
 			
 			switch (op) {
 				case 0:
-					EntradaSaidaDados.mostrarMensagem("0", "Teste");
 					rel = Relatorio.gerar_rel_res_estoque();
 					rel += "\n\nData do Relatório: " + data;
 					EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");

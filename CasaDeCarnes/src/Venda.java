@@ -19,7 +19,7 @@ public class Venda {
 	public void setCod(int cod) {
 		this.cod = cod;
 	}
-	public ArrayList<SaidaProduto> getVenda() {
+	public ArrayList<SaidaProduto> getProds() {
 		return venda;
 	}
 	public void addProd(SaidaProduto prod) {
