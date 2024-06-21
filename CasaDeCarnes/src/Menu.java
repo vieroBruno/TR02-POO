@@ -66,7 +66,7 @@ public class Menu {
 		
 		boolean existe = false;
 		if( Estoque.getEstoque().isEmpty() == false ) {	
-			for(EntradaSaidaProduto prod : Estoque.getEstoque()) {
+			for(EntradaProduto prod : Estoque.getEstoque()) {
 				if( prod.getProd().getCategoria().equals(categorias[op]) && prod.getProd().getDesc().equals(desc) ) {
 					existe = true;
 					break;
@@ -81,7 +81,7 @@ public class Menu {
 			int qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade em " + med + ":");
 			
 			Produto p = new Produto( categorias[op], med, desc, preco );
-			EntradaSaidaProduto ep = new EntradaSaidaProduto( p, qtde );
+			EntradaProduto ep = new EntradaProduto( p, qtde );
 			Estoque.addProd(ep);
 		}
 
@@ -101,7 +101,7 @@ public class Menu {
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 			int index = Estoque.retornarIndex(cat_esc, desc_esc);
 			
-			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
+			EntradaProduto prodAlt = Estoque.getEstoque().get(index);
 			
 			int op = 0;
 			String[] lista= {"Categoria", "Descrição", "Preço", "Quantidade","Salvar"};
@@ -163,7 +163,7 @@ public class Menu {
 			String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 			int index = Estoque.retornarIndex(cat_esc, desc_esc);
 			
-			EntradaSaidaProduto prodAlt = Estoque.getEstoque().get(index);
+			EntradaProduto prodAlt = Estoque.getEstoque().get(index);
 			
 			String dados = "Código: " + prodAlt.getProd().getCod();
 			dados += "\nCategoria: " + prodAlt.getProd().getCategoria();
@@ -203,13 +203,15 @@ public class Menu {
             boolean fin = false;
             
             while (!fin) {
+            	
+//          	v.getProds().clear();
 				
 				String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
 				int index = Estoque.retornarIndex(cat_esc, desc_esc);
 				int qtde = EntradaSaidaDados.retornarInteiro("Insira a Quantidade a ser Vendida:");
 				
-				EntradaSaidaProduto prod = Estoque.getEstoque().get(index);
+				EntradaProduto prod = Estoque.getEstoque().get(index);
 				
 				while(!Estoque.confQtde(index, qtde)) {
 					qtde = EntradaSaidaDados.retornarInteiro("Valor Inválido! Quantidade Máxima - " + 

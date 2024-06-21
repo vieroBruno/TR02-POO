@@ -22,6 +22,9 @@ public class Venda {
 	public ArrayList<SaidaProduto> getProds() {
 		return venda;
 	}
+	public static void setVenda(ArrayList<SaidaProduto> venda) {
+		Venda.venda = venda;
+	}
 	public void addProd(SaidaProduto prod) {
 		venda.add(prod);
 	}
