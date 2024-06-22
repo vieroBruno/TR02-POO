@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -233,8 +232,6 @@ public class Menu {
             boolean fin = false;
             
             while (!fin) {
-            	
-//          	v.getProds().clear();
 				
 				String cat_esc = EntradaSaidaDados.escolherCategoria(Estoque.retornarListaCategorias());
 				String desc_esc = EntradaSaidaDados.escolherDesc(Estoque.retornarListaDesc( cat_esc ));
@@ -282,6 +279,8 @@ public class Menu {
             v.setData(data);
 	        
 	        RegVenda.addVenda(v);
+	        //System.out.println("Tamanho lista vendas"+RegVenda.registros.size());
+	       // System.out.println(RegVenda.registros.get(0).getCod());
 	        
 	        EntradaSaidaDados.mostrarMensagem("Venda Realizada com Sucesso!", "Registro de Venda");
 				
@@ -308,56 +307,72 @@ public class Menu {
 			
 			switch (op) {
 				case 0:
-					rel = Relatorio.gerar_rel_res_estoque();
-					rel += "\n\nData do Relatório: " + data;
-					EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					if( Estoque.getEstoque().isEmpty() == true ) {
+						EntradaSaidaDados.mostrarMensagem( "Sem Produtos no Estoque", "Gerar Relatório");
+					} else {
+						rel = Relatorio.gerar_rel_res_estoque();
+						rel += "\n\nData do Relatório: " + data;
+						EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					}
 					break;
 				case 1:
-	                rels = Relatorio.gerar_rel_det_estoque();
-	                parou = false;
-	                for (i = 0; i < rels.length && !parou; i++) {
-                        rels[i] += "\n\nData do Relatório: " + data;
-                        String[] cont = {"Sair", "Continuar"};
-                        int esc = JOptionPane.showOptionDialog(
-                            null,
-                            rels[i],
-                            "Página " + (i+1),
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null,
-                            cont,
-                            cont[0]
-                        );
-                        if (esc == JOptionPane.YES_OPTION) {
-                            parou = true;
-                        }
-                    }
+					if( Estoque.getEstoque().isEmpty() == true ) {
+						EntradaSaidaDados.mostrarMensagem( "Sem Produtos no Estoque", "Gerar Relatório");
+					} else {
+		                rels = Relatorio.gerar_rel_det_estoque();
+		                parou = false;
+		                for (i = 0; i < rels.length && !parou; i++) {
+	                        rels[i] += "\n\nData do Relatório: " + data;
+	                        String[] cont = {"Sair", "Continuar"};
+	                        int esc = JOptionPane.showOptionDialog(
+	                            null,
+	                            rels[i],
+	                            "Página " + (i+1),
+	                            JOptionPane.YES_NO_OPTION,
+	                            JOptionPane.INFORMATION_MESSAGE,
+	                            null,
+	                            cont,
+	                            cont[0]
+	                        );
+	                        if (esc == JOptionPane.YES_OPTION) {
+	                            parou = true;
+	                        }
+	                    }
+					}
 	                break;
 				case 2:
-					rel = Relatorio.gerar_rel_res_vendas();
-					rel += "\n\nData do Relatório: " + data;
-					EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					if( RegVenda.getVenda().isEmpty() == true ) {
+						EntradaSaidaDados.mostrarMensagem( "Nenhuma Venda Realizada", "Gerar Relatório");
+					} else {
+						rel = Relatorio.gerar_rel_res_vendas();
+						rel += "\n\nData do Relatório: " + data;
+						EntradaSaidaDados.mostrarMensagem(rel, "Gerar Relatório");
+					}
 					break;
 				case 3:
-					rels = Relatorio.gerar_rel_det_vendas();
-					parou = false;
-	                for (i = 0; i < rels.length && !parou; i++) {
-                        rels[i] += "\n\nData do Relatório: " + data;
-                        String[] cont = {"Sair", "Continuar"};
-                        int esc = JOptionPane.showOptionDialog(
-                            null,
-                            rels[i],
-                            "Página " + (i+1),
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null,
-                            cont,
-                            cont[0]
-                        );
-                        if (esc == JOptionPane.YES_OPTION) {
-                            parou = true;
-                        }
-                    }
+					if( RegVenda.getVenda().isEmpty() == true ) {
+						EntradaSaidaDados.mostrarMensagem( "Nenhuma Venda Realizada", "Gerar Relatório");
+					} else {
+						rels = Relatorio.gerar_rel_det_vendas();
+						parou = false;
+		                for (i = 0; i < rels.length && !parou; i++) {
+	                        rels[i] += "\n\nData do Relatório: " + data;
+	                        String[] cont = {"Sair", "Continuar"};
+	                        int esc = JOptionPane.showOptionDialog(
+	                            null,
+	                            rels[i],
+	                            "Página " + (i+1),
+	                            JOptionPane.YES_NO_OPTION,
+	                            JOptionPane.INFORMATION_MESSAGE,
+	                            null,
+	                            cont,
+	                            cont[0]
+	                        );
+	                        if (esc == JOptionPane.YES_OPTION) {
+	                            parou = true;
+	                        }
+	                    }
+					}
 					break;
 			}
 				

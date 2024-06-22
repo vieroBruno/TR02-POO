@@ -4,7 +4,7 @@ public class Venda {
 	
 	private static int proxCod = 1;
 	private int cod;
-	private static ArrayList<SaidaProduto> venda = new ArrayList<SaidaProduto>();
+	private  ArrayList<SaidaProduto> venda = new ArrayList<SaidaProduto>();
 	private String data;
 	
 	public int getProxCod() {
@@ -22,8 +22,8 @@ public class Venda {
 	public ArrayList<SaidaProduto> getProds() {
 		return venda;
 	}
-	public static void setVenda(ArrayList<SaidaProduto> venda) {
-		Venda.venda = venda;
+	public  void setVenda(ArrayList<SaidaProduto> venda) {
+		this.venda = venda;
 	}
 	public void addProd(SaidaProduto prod) {
 		venda.add(prod);

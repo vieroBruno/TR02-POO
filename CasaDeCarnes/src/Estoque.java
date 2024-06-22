@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import javax.swing.JComboBox;
 
 public class Estoque {
@@ -26,7 +25,7 @@ public class Estoque {
 	            }
 	        }
 	    }
-		return lista;			
+		return lista;
 	}
 	
 	public static JComboBox<String> retornarListaDesc( String cat ) {
@@ -38,7 +37,7 @@ public class Estoque {
 				}
 			}
 		}
-		return lista;			
+		return lista;
 	}
 	
 	public static int retornarIndex( String cat, String desc ) {
