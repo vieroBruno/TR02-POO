@@ -99,7 +99,9 @@ public class Menu {
 			Estoque.addProd(ep);
 		}
 
-        EntradaSaidaDados.mostrarMensagem("Produto Cadastrado com Sucesso!", "Cadastrar Produto");
+		if(!existe) {
+			EntradaSaidaDados.mostrarMensagem("Produto Cadastrado com Sucesso!", "Cadastrar Produto");
+		}
 		
 	}
 	
